@@ -1,63 +1,93 @@
 import {
   FaChevronLeft,
   FaChevronRight,
-  FaThLarge,
+  FaGripHorizontal,
   FaList,
   FaSearch,
+  FaHome,
+  FaAngleRight,
 } from "react-icons/fa";
 
 export default function FinderToolbar() {
   return (
-    <div className="h-14 bg-zinc-800/70 border-b border-white/10 flex items-center justify-between px-5">
+    <div
+      className="relative flex h-12 items-center justify-between border-b px-4 transition-colors duration-300"
+      style={{
+        background: "var(--toolbar)",
+        borderColor: "var(--border)",
+      }}
+    >
       {/* Left */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <div className="flex gap-2">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-          <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-        </div>
-
-        <div className="flex gap-2 ml-4">
-          <button className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center text-zinc-300">
+          <button
+            className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-200"
+            style={{ color: "var(--text-secondary)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--hover)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
             <FaChevronLeft />
           </button>
-
-          <button className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center text-zinc-300">
+          <button
+            className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-200"
+            style={{ color: "var(--text-secondary)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--hover)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
             <FaChevronRight />
           </button>
         </div>
       </div>
 
       {/* Center */}
-      <h2 className="text-white font-semibold">Keshav's Workspace</h2>
+      <div
+        className="pointer-events-none absolute left-1/2 flex -translate-x-1/2 items-center gap-2 text-sm"
+        style={{ color: "var(--text-secondary)" }}
+      >
+        <FaHome className="text-xs" style={{ color: "var(--text-muted)" }} />
+        <FaAngleRight className="text-[10px]" style={{ color: "var(--text-muted)" }} />
+        <span className="font-medium">Portfolio</span>
+      </div>
 
       {/* Right */}
       <div className="flex items-center gap-3">
-        <button className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center text-zinc-300">
-          <FaThLarge />
+        <button
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-200"
+          style={{ color: "var(--text-secondary)" }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--hover)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        >
+          <FaGripHorizontal />
         </button>
-
-        <button className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center text-zinc-300">
+        <button
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-200"
+          style={{ color: "var(--text-secondary)" }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--hover)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        >
           <FaList />
         </button>
-
         <div className="relative">
-          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-sm" />
-
+          <FaSearch
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-sm"
+            style={{ color: "var(--text-muted)" }}
+          />
           <input
-            placeholder="Search"
+            placeholder="Search Portfolio"
             className="
             pl-9
             pr-3
             py-2
-            w-56
-            rounded-xl
-            bg-white/10
-            text-white
-            placeholder:text-zinc-400
+            w-48
+            rounded-lg
             outline-none
-            border border-white/10
+            border
             "
+            style={{
+              background: "var(--search)",
+              color: "var(--text)",
+              borderColor: "var(--border-soft)",
+            }}
           />
         </div>
       </div>

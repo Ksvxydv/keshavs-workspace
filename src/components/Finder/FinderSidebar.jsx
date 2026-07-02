@@ -1,54 +1,77 @@
 import {
-  FaUser,
-  FaCode,
-  FaBrain,
-  FaGraduationCap,
-  FaTrophy,
-  FaFileAlt,
-  FaEnvelope,
-} from "react-icons/fa";
+  House,
+  Folder,
+  Briefcase,
+  Download,
+} from "lucide-react";
 
 const favorites = [
-  { name: "About Me", icon: FaUser },
-  { name: "Projects", icon: FaCode },
-  { name: "Skills", icon: FaBrain },
-  { name: "Education", icon: FaGraduationCap },
-  { name: "Achievements", icon: FaTrophy },
-  { name: "Resume", icon: FaFileAlt },
-  { name: "Contact", icon: FaEnvelope },
+  { id: "home", label: "Home", icon: House },
+  { id: "applications", label: "Applications", icon: Folder },
+  { id: "documents", label: "Documents", icon: Folder },
+  { id: "portfolio", label: "Portfolio", icon: Briefcase },
+  { id: "projects", label: "Workspace", icon: Folder },
+  { id: "downloads", label: "Downloads", icon: Download },
 ];
 
-export default function FinderSidebar({ active, setActive }) {
+export default function FinderSidebar({
+  currentPath,
+  goHome,
+  openRootDirectory,
+}) {
   return (
-    <aside className="w-64 bg-[#252526]/70 backdrop-blur-2xl border-r border-white/10 flex flex-col">
+    <aside
+      className="flex w-60 flex-col border-r transition-colors duration-300"
+      style={{
+        background: "var(--sidebar)",
+        borderColor: "var(--border)",
+      }}
+    >
       <div className="px-5 pt-5 pb-3">
-        <p className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">
+        <p
+          className="px-1 text-[11px] font-semibold uppercase tracking-wide"
+          style={{ color: "var(--text-muted)" }}
+        >
           Favorites
         </p>
       </div>
 
-      <div className="px-2 space-y-1">
-        {favorites.map(({ name, icon: Icon }) => (
-          <button
-            key={name}
-            onClick={() => setActive(name)}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200
+      <div className="px-2 space-y-0.5">
+        {favorites.map(({ id, label, icon: Icon }) => {
+          const selected =
+            id === "home"
+              ? currentPath === "/"
+              : currentPath.toLowerCase().includes(id);
 
-            ${
-              active === name
-                ? "bg-[#0A84FF] text-white"
-                : "text-zinc-300 hover:bg-white/10"
-            }
-            `}
-          >
-            <Icon className="text-sm" />
-            <span className="text-[15px]">{name}</span>
-          </button>
-        ))}
+          return (
+            <button
+              key={id}
+              onClick={() => {
+                if (id === "home") {
+                  goHome();
+                  return;
+                }
+
+                openRootDirectory(id);
+              }}
+              className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-left transition-colors"
+              style={{
+                background: selected ? "var(--accent)" : "transparent",
+                color: selected ? "#fff" : "var(--text-secondary)",
+              }}
+            >
+              <Icon size={16} />
+              <span className="text-[13px] font-medium">{label}</span>
+            </button>
+          );
+        })}
       </div>
 
-      <div className="mt-auto p-5 border-t border-white/10">
-        <p className="text-xs text-zinc-500">Keshav's Workspace</p>
+      <div
+        className="mt-auto border-t px-4 py-3"
+        style={{ borderColor: "var(--border)" }}
+      >
+        <p style={{ color: "var(--text-muted)" }}>K-OS File System</p>
       </div>
     </aside>
   );

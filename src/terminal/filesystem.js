@@ -1,0 +1,205 @@
+export const fileSystem = {
+  id: "root",
+  name: "/",
+  type: "directory",
+  children: [
+    {
+      id: "applications",
+      name: "Applications",
+      type: "directory",
+      children: [
+        {
+          id: "finder",
+          name: "Finder.app",
+          type: "app",
+          app: "finder",
+          icon: "finder",
+        },
+        {
+          id: "terminal",
+          name: "Terminal.app",
+          type: "app",
+          app: "terminal",
+          icon: "terminal",
+        },
+        {
+          id: "settings",
+          name: "Settings.app",
+          type: "app",
+          app: "settings",
+          icon: "settings",
+        },
+      ],
+    },
+    {
+      id: "documents",
+      name: "Documents",
+      type: "directory",
+      children: [
+        {
+          id: "resume",
+          name: "Resume.pdf",
+          type: "file",
+          file: "resume",
+          icon: "pdf",
+        },
+      ],
+    },
+    {
+      id: "portfolio",
+      name: "Portfolio",
+      type: "directory",
+      children: [
+        {
+          id: "about",
+          name: "About",
+          type: "page",
+          page: "about",
+          icon: "profile",
+        },
+        {
+          id: "projects-page",
+          name: "Projects",
+          type: "page",
+          page: "projects",
+          icon: "folder",
+        },
+        {
+          id: "skills",
+          name: "Skills",
+          type: "page",
+          page: "skills",
+          icon: "code",
+        },
+        {
+          id: "education",
+          name: "Education",
+          type: "page",
+          page: "education",
+          icon: "graduation",
+        },
+        {
+          id: "achievements",
+          name: "Achievements",
+          type: "page",
+          page: "achievements",
+          icon: "trophy",
+        },
+        {
+          id: "resume-page",
+          name: "Resume",
+          type: "page",
+          page: "resume",
+          icon: "pdf",
+        },
+        {
+          id: "contact",
+          name: "Contact",
+          type: "page",
+          page: "contact",
+          icon: "mail",
+        },
+      ],
+    },
+    {
+      id: "projects",
+      name: "Workspace",
+      type: "directory",
+      children: [
+        {
+          id: "kos",
+          name: "K-OS",
+          type: "directory",
+          children: [
+            { id: "kos-readme", name: "README.md", type: "file" },
+            { id: "kos-package", name: "package.json", type: "file" },
+            { id: "kos-src", name: "src", type: "directory", children: [] },
+            {
+              id: "kos-public",
+              name: "public",
+              type: "directory",
+              children: [],
+            },
+            {
+              id: "kos-assets",
+              name: "assets",
+              type: "directory",
+              children: [],
+            },
+            {
+              id: "kos-github",
+              name: "GitHub.url",
+              type: "link",
+              url: "https://github.com/ksvxydv/keshavs-workspace",
+            },
+            {
+              id: "kos-demo",
+              name: "Live Demo.url",
+              type: "link",
+              url: "#",
+            },
+          ],
+        },
+        {
+          id: "college",
+          name: "College",
+          type: "directory",
+          children: [
+            {
+              id: "semester-1",
+              name: "Semester 1",
+              type: "directory",
+              children: [],
+            },
+            {
+              id: "semester-2",
+              name: "Semester 2",
+              type: "directory",
+              children: [],
+            },
+            { id: "notes", name: "Notes", type: "directory", children: [] },
+          ],
+        },
+        {
+          id: "dsa",
+          name: "DSA",
+          type: "directory",
+          children: [
+            {
+              id: "leetcode",
+              name: "LeetCode",
+              type: "directory",
+              children: [],
+            },
+            {
+              id: "codeforces",
+              name: "Codeforces",
+              type: "directory",
+              children: [],
+            },
+            { id: "dsa-notes", name: "Notes.md", type: "file" },
+          ],
+        },
+        {
+          id: "ai-projects",
+          name: "AI Projects",
+          type: "directory",
+          children: [
+            {
+              id: "ai-assistant",
+              name: "AI Assistant",
+              type: "directory",
+              children: [{ id: "ai-readme", name: "README.md", type: "file" }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "downloads",
+      name: "Downloads",
+      type: "directory",
+      children: [],
+    },
+  ],
+};

@@ -1,42 +1,31 @@
-import { Folder, Globe, Terminal, Settings, Trash2 } from "lucide-react";
+import { icons } from "../../data/icons";
 
-const icons = {
-  Finder: Folder,
-  Safari: Globe,
-  Terminal: Terminal,
-  Settings: Settings,
-  Trash: Trash2,
-};
-
-export default function DesktopIcon({ name, onOpen }) {
-  const Icon = icons[name];
+export default function DesktopIcon({ name, onOpen, selected, onSelect }) {
+  const icon = icons[name.toLowerCase()];
 
   return (
     <button
+      type="button"
+      onClick={onSelect}
       onDoubleClick={onOpen}
-      className="flex flex-col items-center gap-2 w-24 select-none group"
+      className="group flex w-24 select-none flex-col items-center gap-2"
     >
-      <div
-        className="
-          w-16
-          h-16
-          rounded-2xl
-          bg-white/10
-          backdrop-blur-xl
-          border
-          border-white/10
-          flex
-          items-center
-          justify-center
-          transition
-          duration-200
-          group-hover:scale-105
-        "
-      >
-        <Icon size={34} className="text-white" />
+      <div className="w-20 h-20 flex items-center justify-center transition duration-200 group-hover:scale-105">
+        <img
+          src={icon}
+          alt={name}
+          draggable={false}
+          className="h-16 w-16 select-none object-contain pointer-events-none transition-transform duration-200"
+        />
       </div>
 
-      <span className="text-white text-sm drop-shadow">{name}</span>
+      <span
+        className={`rounded-md px-2 py-0.5 text-sm transition-colors ${
+          selected ? "bg-[#0A84FF] text-white" : "text-white drop-shadow"
+        }`}
+      >
+        {name}
+      </span>
     </button>
   );
 }
