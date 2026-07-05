@@ -9,6 +9,7 @@ import Education from "../pages/Education";
 import Achievements from "../pages/Achievements";
 import Resume from "../pages/Resume";
 import Contact from "../pages/Contact";
+import Safari from "../pages/Safari";
 import PageWindow from "../components/Window/PageWindow";
 import { createElement } from "react";
 
@@ -101,6 +102,16 @@ export const appRegistry = {
         ...props,
         title: "Contact",
         Component: Contact,
+      }),
+  },
+  safari: {
+    id: "safari",
+    title: "Safari",
+    component: (props) =>
+      createElement(PageWindow, {
+        ...props,
+        title: "Safari",
+        Component: Safari,
       }),
   },
 };

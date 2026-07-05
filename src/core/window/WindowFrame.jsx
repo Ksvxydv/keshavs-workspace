@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 
 export default function WindowFrame({
   title,
+  maximized = false,
   children,
   onClose,
   onMinimize,
@@ -48,26 +49,53 @@ export default function WindowFrame({
         width: "100%",
         height: "100%",
       }}
-      className="relative rounded-2xl overflow-hidden border"
+      className={`relative overflow-hidden border ${
+        maximized ? "rounded-none" : "rounded-2xl"
+      }`}
     >
       {/* Resize Handles */}
-      <div className="absolute inset-x-2 top-0 h-1 cursor-ns-resize" onMouseDown={(e) => onResizeStart?.("top", e)} />
-      <div className="absolute inset-x-2 bottom-0 h-1 cursor-ns-resize" onMouseDown={(e) => onResizeStart?.("bottom", e)} />
-      <div className="absolute inset-y-2 left-0 w-1 cursor-ew-resize" onMouseDown={(e) => onResizeStart?.("left", e)} />
-      <div className="absolute inset-y-2 right-0 w-1 cursor-ew-resize" onMouseDown={(e) => onResizeStart?.("right", e)} />
-      <div className="absolute left-0 top-0 h-3 w-3 cursor-nwse-resize" onMouseDown={(e) => onResizeStart?.("top-left", e)} />
-      <div className="absolute right-0 top-0 h-3 w-3 cursor-nesw-resize" onMouseDown={(e) => onResizeStart?.("top-right", e)} />
-      <div className="absolute left-0 bottom-0 h-3 w-3 cursor-nesw-resize" onMouseDown={(e) => onResizeStart?.("bottom-left", e)} />
-      <div className="absolute bottom-0 right-0 h-3 w-3 cursor-nwse-resize" onMouseDown={(e) => onResizeStart?.("bottom-right", e)} />
       <div
-        onMouseDown={onDragStart}
-        className="relative flex h-8 cursor-grab items-center border-b px-3 select-none active:cursor-grabbing"
+        className="absolute inset-x-2 top-0 h-1 cursor-ns-resize"
+        onMouseDown={(e) => onResizeStart?.("top", e)}
+      />
+      <div
+        className="absolute inset-x-2 bottom-0 h-1 cursor-ns-resize"
+        onMouseDown={(e) => onResizeStart?.("bottom", e)}
+      />
+      <div
+        className="absolute inset-y-2 left-0 w-1 cursor-ew-resize"
+        onMouseDown={(e) => onResizeStart?.("left", e)}
+      />
+      <div
+        className="absolute inset-y-2 right-0 w-1 cursor-ew-resize"
+        onMouseDown={(e) => onResizeStart?.("right", e)}
+      />
+      <div
+        className="absolute left-0 top-0 h-3 w-3 cursor-nwse-resize"
+        onMouseDown={(e) => onResizeStart?.("top-left", e)}
+      />
+      <div
+        className="absolute right-0 top-0 h-3 w-3 cursor-nesw-resize"
+        onMouseDown={(e) => onResizeStart?.("top-right", e)}
+      />
+      <div
+        className="absolute left-0 bottom-0 h-3 w-3 cursor-nesw-resize"
+        onMouseDown={(e) => onResizeStart?.("bottom-left", e)}
+      />
+      <div
+        className="absolute bottom-0 right-0 h-3 w-3 cursor-nwse-resize"
+        onMouseDown={(e) => onResizeStart?.("bottom-right", e)}
+      />
+      <div
+        onMouseDown={maximized ? undefined : onDragStart}
+        onDoubleClick={onMaximize}
+        className={`relative flex h-9 items-center border-b px-4 select-none ${maximized ? "cursor-default" : "cursor-grab active:cursor-grabbing"}`}
         style={{
           background: "var(--toolbar)",
           borderColor: "var(--border)",
         }}
       >
-        <div className="group flex items-center gap-[6px]">
+        <div className="group ml-3 flex items-center gap-[7px]">
           <button
             onMouseDown={(e) => e.stopPropagation()}
             onClick={onClose}
@@ -106,7 +134,7 @@ export default function WindowFrame({
       </div>
 
       <div
-        className="h-[calc(100%-32px)] overflow-auto"
+        className="h-[calc(100%-36px)] overflow-auto"
         style={{
           background: "var(--window-secondary)",
           color: "var(--text)",

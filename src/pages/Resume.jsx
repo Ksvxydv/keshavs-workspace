@@ -20,14 +20,16 @@ export default function Resume() {
           className="transition-transform duration-300 ease-in-out hover:scale-110"
           style={{ color: "var(--text-secondary)" }}
         />
-        <h2 className="text-3xl font-semibold">Resume.pdf</h2>
-        <h3 className="text-xl font-medium text-[var(--text-secondary)]">Currently under development</h3>
-        <p className="max-w-md text-center text-[var(--text-secondary)]">
-          A polished macOS Preview-style resume viewer is being crafted and will be available soon.
+        <h2 className="text-3xl font-semibold">Resume</h2>
+        <h3 className="text-xl font-medium text-[var(--text-secondary)]">
+          Resume Coming Soon
+        </h3>
+        <p className="max-w-lg text-center leading-7 text-[var(--text-secondary)]">
+          I'm currently building my experience through projects, competitive programming, and continuous learning. A polished resume and a macOS Preview-style viewer will be available here soon.
         </p>
         <div className="mt-6 rounded-full px-4 py-1 bg-[var(--window)] border border-[var(--border)] flex items-center gap-2 text-[var(--text-secondary)] select-none">
           <HiSparkles />
-          <span>Coming Soon</span>
+          <span>In Progress</span>
         </div>
       </div>
     </Page>

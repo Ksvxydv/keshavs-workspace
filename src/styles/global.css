@@ -54,3 +54,6 @@ body {
     background-color 250ms ease,
     color 250ms ease;
 }
+.hide-scrollbar::-webkit-scrollbar{
+    display:none;
+}

@@ -10,6 +10,9 @@ export default function useWindowManager() {
   const [topZIndex, setTopZIndex] = useState(1);
   const [activeWindowId, setActiveWindowId] = useState(null);
 
+  const activeWindow = openWindows.find((w) => w.id === activeWindowId);
+  const isActiveWindowMaximized = activeWindow?.maximized ?? false;
+
   const dragState = useRef(null);
   const resizeState = useRef(null);
 
@@ -114,9 +117,9 @@ export default function useWindowManager() {
             height: w.height,
           },
           x: 0,
-          y: 40,
+          y: 0,
           width: window.innerWidth,
-          height: window.innerHeight - 40,
+          height: window.innerHeight,
           maximized: true,
         };
       }),
@@ -283,23 +286,35 @@ export default function useWindowManager() {
     };
   }, []);
 
-  // Temporary debug effect to verify restoreWindow updates state
+
   useEffect(() => {
-    if (openWindows.length === 0) {
-      console.log("No open windows");
-      return;
+    function handleResize() {
+      setOpenWindows((current) =>
+        current.map((w) =>
+          w.maximized
+            ? {
+                ...w,
+                x: 0,
+                y: 0,
+                width: window.innerWidth,
+                height: window.innerHeight,
+              }
+            : w,
+        ),
+      );
     }
 
-    openWindows.forEach((w) => {
-      console.log(
-        `Window ${w.id}: minimized=${w.minimized}, closing=${w.closing}, zIndex=${w.zIndex}`,
-      );
-    });
-  }, [openWindows]);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return {
     openWindows,
     activeWindowId,
+    isActiveWindowMaximized,
     openWindow,
     closeWindow,
     minimizeWindow,

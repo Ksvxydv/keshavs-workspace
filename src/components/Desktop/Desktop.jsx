@@ -43,6 +43,19 @@ export default function Desktop() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedIcon]);
 
+  useEffect(() => {
+    if (!wallpaper?.colors) return;
+
+    const root = document.documentElement;
+
+    root.style.setProperty("--wallpaper-primary", wallpaper.colors.primary);
+    root.style.setProperty("--wallpaper-secondary", wallpaper.colors.secondary);
+    root.style.setProperty("--glass-tint", wallpaper.colors.primary);
+    root.style.setProperty("--glass-border", "rgba(255,255,255,0.08)");
+    root.style.setProperty("--glass-highlight", "rgba(255,255,255,0.12)");
+    root.style.setProperty("--glass-shadow", "rgba(0,0,0,0.18)");
+  }, [wallpaper]);
+
   function openDirectory(directoryId) {
     const app = desktopApps.find((item) => item.id === directoryId);
     if (app) {
@@ -136,17 +149,19 @@ export default function Desktop() {
                     key={window.id}
                     style={{
                       position: "absolute",
-                      left: window.x,
-                      top: window.y,
-                      width: window.width,
-                      height: window.height,
+                      left: window.maximized ? 0 : window.x,
+                      top: window.maximized ? 0 : window.y,
+                      width: window.maximized ? "100vw" : window.width,
+                      height: window.maximized ? "100vh" : window.height,
                       zIndex: window.zIndex,
+                      overflow: "hidden",
                     }}
                     onMouseDown={() => focusWindow(window.id)}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <App
                       window={window}
+                      isMaximized={window.maximized}
                       onClose={() => {
                         console.log("Close clicked:", window.id);
                         closeWindow(window.id);
