@@ -233,9 +233,9 @@ export default function FinderContent({
 
                 <span
                   className="mt-2 w-full truncate text-center text-sm font-medium"
-                  title={item.name}
+                  title={item.displayName ?? item.name}
                 >
-                  {item.name}
+                  {item.displayName ?? item.name}
                 </span>
               </button>
             );

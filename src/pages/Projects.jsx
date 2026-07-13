@@ -1,4 +1,5 @@
 import Page from "../components/ui/Page";
+import { HiCommandLine } from "react-icons/hi2";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
@@ -64,15 +65,95 @@ export default function Projects() {
 
   return (
     <Page>
+      <div className="h-full overflow-y-auto">
+        <div className="p-4 lg:p-5">
+          <div
+            className="rounded-[28px] border p-6 shadow-2xl backdrop-blur-2xl md:p-8"
+            style={{
+              background: "var(--window)",
+              borderColor: "var(--border)",
+              color: "var(--text)",
+            }}
+          >
+        <div
+  className="relative mb-8 overflow-hidden rounded-[28px] border p-8 shadow-2xl backdrop-blur-2xl lg:p-10"
+  style={{
+    background:
+      "linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, var(--window-secondary) 90%), var(--window-secondary))",
+    borderColor: "var(--border)",
+  }}
+>
+  <div
+    className="absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl"
+    style={{
+      background: "color-mix(in srgb, var(--accent) 28%, transparent)",
+      opacity: 0.45,
+    }}
+  />
+
+  <div
+    className="absolute -left-24 bottom-0 h-64 w-64 rounded-full blur-3xl"
+    style={{
+      background: "color-mix(in srgb, var(--accent) 18%, transparent)",
+      opacity: 0.3,
+    }}
+  />
+
+  <div
+    className="absolute inset-0 opacity-[0.035]"
+    style={{
+      backgroundImage:
+        "radial-gradient(circle at 1px 1px, var(--text) 1px, transparent 0)",
+      backgroundSize: "22px 22px",
+    }}
+  />
+
+  <div
+    className="pointer-events-none absolute inset-x-0 top-0 h-px"
+    style={{
+      background: "linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent)",
+    }}
+  />
+
+  <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+    <div className="flex items-center gap-6">
       <div
-        className="rounded-3xl border p-5 md:p-8 h-full overflow-y-auto"
+        className="flex h-24 w-24 items-center justify-center rounded-full border shadow-xl backdrop-blur-2xl"
         style={{
-          background: "var(--window)",
+          background: "color-mix(in srgb, var(--window-secondary) 88%, var(--accent) 12%)",
           borderColor: "var(--border)",
-          color: "var(--text)",
         }}
       >
-        <div className="flex flex-col gap-6 xl:flex-row">
+        <HiCommandLine className="h-11 w-11" style={{ color: "var(--accent)" }} />
+      </div>
+      <div>
+        <h1 className="text-3xl font-bold lg:text-5xl" style={{ color: "var(--text)" }}>
+          K_OS Portfolio
+        </h1>
+        <p className="mt-3 max-w-2xl leading-7" style={{ color: "var(--text-secondary)" }}>
+          A macOS Tahoe-inspired interactive desktop experience built with React, Vite, and modern frontend technologies.
+        </p>
+      </div>
+    </div>
+
+    <div className="flex flex-wrap gap-3">
+      {['React','Vite','8 Screens','Desktop UI'].map((chip)=>(
+        <span
+          key={chip}
+          className="rounded-full border px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-2xl transition-all duration-300 hover:-translate-y-0.5"
+          style={{
+            background:"color-mix(in srgb, var(--window-secondary) 86%, var(--accent) 14%)",
+            borderColor:"var(--border)",
+            color:"var(--text)",
+          }}
+        >
+          {chip}
+        </span>
+      ))}
+    </div>
+  </div>
+</div>
+        <div className="flex flex-col gap-8 xl:flex-row">
           <div className="w-full xl:w-3/5">
             <div
               className="group relative aspect-video w-full overflow-hidden rounded-2xl border flex items-center justify-center"
@@ -161,10 +242,6 @@ export default function Projects() {
           </div>
 
           <div className="flex flex-1 flex-col">
-            <h2 className="text-3xl font-bold">K-OS</h2>
-            <p className="mt-2 text-lg" style={{ color: "var(--text-secondary)" }}>
-              macOS-inspired Interactive Portfolio
-            </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
               {['React','JavaScript','Vite','HTML','CSS'].map((tech) => (
@@ -212,7 +289,7 @@ export default function Projects() {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-10 grid gap-5 pb-4 sm:grid-cols-2 xl:grid-cols-3">
           {[
             'Finder & Desktop',
             'Dock & Window Manager',
@@ -223,7 +300,7 @@ export default function Projects() {
           ].map((feature) => (
             <div
               key={feature}
-              className="rounded-2xl border p-5"
+              className="rounded-2xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               style={{
                 borderColor: "var(--border)",
                 background: "var(--window-secondary)",
@@ -232,6 +309,8 @@ export default function Projects() {
               <h3 className="font-semibold">{feature}</h3>
             </div>
           ))}
+        </div>
+          </div>
         </div>
       </div>
 

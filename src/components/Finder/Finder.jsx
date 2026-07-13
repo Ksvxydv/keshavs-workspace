@@ -25,6 +25,14 @@ export default function Finder({
     canGoForward,
   } = useFileSystem();
 
+  // Remove '.app' suffix from displayed names for application entries
+  const displayItems = items.map(item => {
+    if (item.name.endsWith('.app')) {
+      return { ...item, displayName: item.name.slice(0, -4) };
+    }
+    return { ...item, displayName: item.name };
+  });
+
   return (
     <WindowFrame
       title="Finder"
@@ -44,7 +52,7 @@ export default function Finder({
 
         <FinderContent
           currentPath={currentPath}
-          items={items}
+          items={displayItems}
           openDirectory={openDirectory}
           openItem={openItem}
           goHome={goHome}
@@ -53,6 +61,7 @@ export default function Finder({
           canGoBack={canGoBack}
           canGoForward={canGoForward}
           openPath={openPath}
+          itemLabel={(item) => item.displayName ?? item.name}
         />
       </div>
     </WindowFrame>

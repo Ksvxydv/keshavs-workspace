@@ -1,9 +1,14 @@
 import folderIcon from "../../assets/icons/folders/folder.png";
 import finderIcon from "../../assets/icons/apps/finder.png";
 import terminalIcon from "../../assets/icons/apps/terminal.png";
+import freeformIcon from "../../assets/icons/apps/freeform.png";
 import settingsIcon from "../../assets/icons/apps/settings.png";
-import contactsIcon from "../../assets/icons/apps/contacts.png";
+import screenSharingIcon from "../../assets/icons/apps/screenSharing.png";
 import pdfIcon from "../../assets/icons/files/pdf.png";
+import booksIcon from "../../assets/icons/apps/books.png";
+import mailIcon from "../../assets/icons/apps/mail.png";
+import gamesIcon from "../../assets/icons/apps/games.png";
+import missionControlIcon from "../../assets/icons/apps/missionControl.png";
 import { memo } from "react";
 import {
   Folder,
@@ -47,25 +52,25 @@ function FileIcon({ item, size = 44 }) {
   if (item.type === "page") {
     switch (item.page) {
       case "about":
-        return <IconImage src={folderIcon} alt="About" size={size} />;
+        return <IconImage src={screenSharingIcon} alt="About" size={size} />;
 
       case "projects":
-        return <IconImage src={folderIcon} alt="Projects" size={size} />;
+        return <IconImage src={missionControlIcon} alt="Projects" size={size} />;
 
       case "skills":
-        return <IconImage src={folderIcon} alt="Skills" size={size} />;
+        return <IconImage src={freeformIcon} alt="Skills" size={size} />;
 
       case "education":
-        return <IconImage src={folderIcon} alt="Education" size={size} />;
+        return <IconImage src={booksIcon} alt="Education" size={size} />;
 
       case "achievements":
-        return <IconImage src={folderIcon} alt="Achievements" size={size} />;
+        return <IconImage src={gamesIcon} alt="Achievements" size={size} />;
 
       case "resume":
         return <IconImage src={pdfIcon} alt="Resume" size={size} />;
 
       case "contact":
-        return <IconImage src={contactsIcon} alt="Contacts" size={size} />;
+        return <IconImage src={mailIcon} alt="Contact" size={size} />;
 
       default:
         return <FileText size={size} strokeWidth={1.8} />;
