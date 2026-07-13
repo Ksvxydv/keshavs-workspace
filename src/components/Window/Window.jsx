@@ -11,12 +11,12 @@ export default function Window({ title, children }) {
       style={{
         position: "absolute",
         left: 0,
-        top: 32,
+        top: 0,
         right: 0,
         bottom: 0,
         transform: `translate(${transform?.x || 0}px, ${transform?.y || 0}px)`,
       }}
-      className="overflow-hidden rounded-none border-0 bg-zinc-900/90 shadow-2xl backdrop-blur-3xl"
+      className="h-full overflow-hidden rounded-none border-0 bg-zinc-900/90 shadow-2xl backdrop-blur-3xl"
     >
       <div
         {...listeners}
@@ -32,7 +32,7 @@ export default function Window({ title, children }) {
         <h2 className="absolute left-1/2 -translate-x-1/2 text-white text-[13px] font-medium pointer-events-none">{title}</h2>
       </div>
 
-      <div className="flex h-[calc(100%-56px)] w-full overflow-hidden text-white">
+      <div className="flex flex-1 h-[calc(100%-56px)] w-full overflow-hidden text-white min-h-0">
         {children}
       </div>
     </div>

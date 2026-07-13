@@ -12,11 +12,20 @@ import { accentColors } from "../data/accentColors";
 const DesktopSettingsContext = createContext(null);
 
 export function DesktopSettingsProvider({ children }) {
-  const [theme, setTheme] = useState("dark");
-  const [wallpaper, setWallpaper] = useState(
-    wallpapers.find((wallpaper) => wallpaper.id === "tahoe") ?? wallpapers[0]
-  );
-  const [accentColor, setAccentColor] = useState("blue");
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("k-os-theme") ?? "dark";
+  });
+  const [accentColor, setAccentColor] = useState(() => {
+    return localStorage.getItem("k-os-accent") ?? "blue";
+  });
+  const [wallpaper, setWallpaper] = useState(() => {
+    const savedId = localStorage.getItem("k-os-wallpaper");
+    return (
+      wallpapers.find((wallpaper) => wallpaper.id === savedId) ??
+      wallpapers.find((wallpaper) => wallpaper.id === "tahoe") ??
+      wallpapers[0]
+    );
+  });
 
   useEffect(() => {
     const selectedAccent = accentColors.find(
@@ -28,6 +37,20 @@ export function DesktopSettingsProvider({ children }) {
       selectedAccent?.value ?? "#0A84FF"
     );
   }, [accentColor]);
+
+  useEffect(() => {
+    localStorage.setItem("k-os-theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem("k-os-accent", accentColor);
+  }, [accentColor]);
+
+  useEffect(() => {
+    if (wallpaper?.id) {
+      localStorage.setItem("k-os-wallpaper", wallpaper.id);
+    }
+  }, [wallpaper]);
 
   const value = useMemo(
     () => ({

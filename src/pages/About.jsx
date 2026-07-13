@@ -13,6 +13,7 @@ import {
   Code2,
   Rocket,
 } from "lucide-react";
+import { getTerminalActions } from "../terminal/terminalActions";
 
 export default function About() {
   const primaryEducation = education[0];
@@ -22,6 +23,7 @@ export default function About() {
     { icon: leetcodeLogo, alt: "LeetCode", url: social.leetcode.url },
     { icon: codeforcesLogo, alt: "Codeforces", url: social.codeforces.url },
   ];
+  const actions = getTerminalActions();
   return (
     <div
       className="h-full overflow-auto p-8 transition-colors duration-300"
@@ -30,26 +32,15 @@ export default function About() {
         color: "var(--text)",
       }}
     >
-      <div className="mb-8">
-        <p className="text-sm font-medium text-blue-400">About</p>
-        <h1 className="mt-1 text-4xl font-bold">{profile.name}</h1>
-        <p
-          className="mt-2"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          {profile.branch} • {profile.college}
-        </p>
-      </div>
-
       <div
-        className="mb-8 flex items-center gap-10 rounded-3xl border p-10"
+        className="mb-8 flex items-center gap-10 rounded-3xl border p-10 min-h-[260px]"
         style={{
           background: "var(--window)",
           borderColor: "var(--border)",
         }}
       >
         <div
-          className="h-40 w-40 overflow-hidden rounded-3xl border shadow-xl shrink-0"
+          className="h-44 w-44 overflow-hidden rounded-3xl border shadow-xl shrink-0"
           style={{ borderColor: "var(--border)" }}
         >
           <img
@@ -71,8 +62,14 @@ export default function About() {
           </p>
 
           <div className="mt-6 flex gap-3">
-            <button className="rounded-lg bg-blue-500 px-5 py-2 transition hover:bg-blue-600">Resume</button>
             <button
+              onClick={() => actions.openWindow?.("resume")}
+              className="rounded-lg bg-blue-500 px-5 py-2 transition hover:bg-blue-600"
+            >
+              Resume
+            </button>
+            <button
+              onClick={() => actions.openWindow?.("contact")}
               className="rounded-lg border px-5 py-2 transition"
               style={{
                 background: "var(--toolbar)",
@@ -99,7 +96,7 @@ export default function About() {
                 <img
                   src={icon}
                   alt={alt}
-                  className="h-6 w-6 object-contain"
+                  className="h-7 w-7 object-contain"
                   draggable={false}
                 />
               </a>
@@ -108,7 +105,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         <div
           className="group rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
           style={{

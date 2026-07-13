@@ -29,6 +29,7 @@ export default function FinderContent({
   });
 
   const [infoItem, setInfoItem] = useState(null);
+  const [previewItem, setPreviewItem] = useState(null);
 
   const mainRef = useRef(null);
 
@@ -48,10 +49,30 @@ export default function FinderContent({
     };
   }, [contextMenu.visible]);
 
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "Escape") {
+        setPreviewItem(null);
+        return;
+      }
+
+      if (e.code !== "Space") return;
+
+      const item = gridItems.find((i) => i.id === selectedItem);
+      if (!item) return;
+
+      e.preventDefault();
+      setPreviewItem(item);
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedItem, gridItems]);
+
   return (
     <main
       ref={mainRef}
-      className="flex-1 overflow-auto p-8"
+      className="flex-1 overflow-auto px-8 py-6"
       style={{
         background: "var(--window-secondary)",
         color: "var(--text)",
@@ -60,10 +81,12 @@ export default function FinderContent({
     >
       <div className="mx-auto max-w-6xl">
         <div
-          className="mb-6 flex items-center gap-3 rounded-xl border px-4 py-3"
+          className="mb-5 flex flex-wrap items-center gap-3 rounded-2xl border px-4 py-3 backdrop-blur-2xl"
           style={{
-            background: "var(--window)",
-            borderColor: "var(--border)",
+            background: "rgba(255,255,255,.045)",
+            borderColor: "rgba(255,255,255,.08)",
+            backdropFilter: "blur(24px) saturate(180%)",
+            WebkitBackdropFilter: "blur(24px) saturate(180%)",
           }}
         >
           <button
@@ -90,7 +113,7 @@ export default function FinderContent({
           </button>
 
           <div
-            className="flex-1 rounded-lg border px-3 py-2"
+            className="min-w-0 flex-1 overflow-hidden rounded-lg border px-3 py-2"
             style={{ borderColor: "var(--border)" }}
           >
             <Breadcrumbs
@@ -101,19 +124,19 @@ export default function FinderContent({
           </div>
 
           <div
-            className="flex w-56 items-center gap-2 rounded-lg border px-3 py-2"
+            className="flex min-w-[160px] max-w-[220px] flex-1 items-center gap-2 rounded-lg border px-3 py-2"
             style={{ borderColor: "var(--border)" }}
           >
             <Search size={15} />
             <input
-              className="w-full bg-transparent text-sm outline-none"
+              className="w-full min-w-0 bg-transparent text-sm outline-none"
               placeholder="Search"
               disabled
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12 justify-items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-8 justify-items-center">
           {gridItems.map((item, index) => {
             const isSelected = selectedItem === item.id;
 
@@ -185,10 +208,10 @@ export default function FinderContent({
                   setSelectedItem(item.id);
                 }}
                 onContextMenu={handleContextMenu}
-                className={`group flex flex-col items-center w-40 rounded-xl p-6 transition-all duration-200 cursor-pointer ${
+                className={`group transform-gpu flex w-36 flex-col items-center rounded-2xl p-4 cursor-pointer transition-transform duration-150 ease-out will-change-transform ${
                   isSelected
                     ? "shadow-sm scale-[1.02]"
-                    : "hover:-translate-y-1 hover:scale-[1.05]"
+                    : "hover:-translate-y-1 hover:scale-[1.03]"
                 }`}
                 style={{
                   background: isSelected
@@ -200,16 +223,16 @@ export default function FinderContent({
                 }}
               >
                 <div
-                  className="flex h-20 w-20 items-center justify-center rounded-xl transition-colors"
+                  className="flex h-16 w-16 items-center justify-center rounded-xl transform-gpu transition-transform duration-150 ease-out group-hover:scale-[1.02]"
                   style={{
                     color: "var(--accent)",
                   }}
                 >
-                  <FileIcon item={item} size={72} />
+                  <FileIcon item={item} size={60} />
                 </div>
 
                 <span
-                  className="mt-3 w-full text-center text-base font-medium whitespace-nowrap overflow-hidden text-ellipsis"
+                  className="mt-2 w-full truncate text-center text-sm font-medium"
                   title={item.name}
                 >
                   {item.name}
@@ -250,7 +273,13 @@ export default function FinderContent({
               if (openItem && contextMenu.item) {
                 openItem(contextMenu.item);
               }
-              setContextMenu({ visible: false, x: 0, y: 0, item: null, anchorRect: null });
+              setContextMenu({
+                visible: false,
+                x: 0,
+                y: 0,
+                item: null,
+                anchorRect: null,
+              });
             }}
           >
             Open
@@ -261,7 +290,13 @@ export default function FinderContent({
               if (contextMenu.item) {
                 setInfoItem(contextMenu.item);
               }
-              setContextMenu({ visible: false, x: 0, y: 0, item: null, anchorRect: null });
+              setContextMenu({
+                visible: false,
+                x: 0,
+                y: 0,
+                item: null,
+                anchorRect: null,
+              });
             }}
           >
             Get Info
@@ -272,7 +307,13 @@ export default function FinderContent({
               if (contextMenu.item) {
                 navigator.clipboard.writeText(contextMenu.item.name);
               }
-              setContextMenu({ visible: false, x: 0, y: 0, item: null, anchorRect: null });
+              setContextMenu({
+                visible: false,
+                x: 0,
+                y: 0,
+                item: null,
+                anchorRect: null,
+              });
             }}
           >
             Copy Name
@@ -286,11 +327,43 @@ export default function FinderContent({
           <button
             className="w-full text-left px-4 py-2 hover:bg-black/5 dark:hover:bg-white/5"
             onClick={() => {
-              setContextMenu({ visible: false, x: 0, y: 0, item: null, anchorRect: null });
+              setContextMenu({
+                visible: false,
+                x: 0,
+                y: 0,
+                item: null,
+                anchorRect: null,
+              });
             }}
           >
             Cancel
           </button>
+        </div>
+      )}
+      {previewItem && (
+        <div
+          className="fixed inset-0 z-[1200] flex items-center justify-center"
+          style={{
+            background: "rgba(0,0,0,.28)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+          }}
+          onClick={() => setPreviewItem(null)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-[520px] rounded-3xl border p-8"
+            style={{
+              background: "rgba(35,35,40,.92)",
+              border: "1px solid rgba(255,255,255,.12)",
+            }}
+          >
+            <div className="flex flex-col items-center">
+              <FileIcon item={previewItem} size={120} />
+              <h2 className="mt-6 text-2xl font-semibold">{previewItem.name}</h2>
+              <p className="mt-3 text-sm opacity-70">{previewItem.type}</p>
+            </div>
+          </div>
         </div>
       )}
       <GetInfoModal

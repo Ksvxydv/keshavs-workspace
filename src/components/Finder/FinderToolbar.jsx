@@ -6,6 +6,8 @@ import {
   FaSearch,
   FaHome,
   FaAngleRight,
+  FaEllipsisH,
+  FaShareSquare
 } from "react-icons/fa";
 
 export default function FinderToolbar() {
@@ -36,6 +38,14 @@ export default function FinderToolbar() {
           >
             <FaChevronRight />
           </button>
+          <button
+            className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-200"
+            style={{ color: "var(--text-secondary)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--hover)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
+            ↑
+          </button>
         </div>
       </div>
 
@@ -47,6 +57,8 @@ export default function FinderToolbar() {
         <FaHome className="text-xs" style={{ color: "var(--text-muted)" }} />
         <FaAngleRight className="text-[10px]" style={{ color: "var(--text-muted)" }} />
         <span className="font-medium">Portfolio</span>
+        <FaAngleRight className="text-[10px]" style={{ color: "var(--text-muted)" }} />
+        <span className="font-medium">Projects</span>
       </div>
 
       {/* Right */}
@@ -74,22 +86,31 @@ export default function FinderToolbar() {
           />
           <input
             placeholder="Search Portfolio"
-            className="
-            pl-9
-            pr-3
-            py-2
-            w-48
-            rounded-lg
-            outline-none
-            border
-            "
+            className="pl-9 pr-3 py-2 w-56 rounded-xl outline-none border transition-all focus:w-64"
             style={{
-              background: "var(--search)",
+              background: "rgba(255,255,255,.06)",
               color: "var(--text)",
-              borderColor: "var(--border-soft)",
+              borderColor: "rgba(255,255,255,.08)",
+              backdropFilter: "blur(18px)",
             }}
           />
         </div>
+        <button
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-200"
+          style={{ color: "var(--text-secondary)" }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--hover)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        >
+          <FaShareSquare />
+        </button>
+        <button
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-200"
+          style={{ color: "var(--text-secondary)" }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--hover)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        >
+          <FaEllipsisH />
+        </button>
       </div>
     </div>
   );

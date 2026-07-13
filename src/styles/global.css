@@ -14,10 +14,16 @@
   --border-soft: rgba(255, 255, 255, 0.05);
 
   --accent: #0a84ff;
+  --selection: rgba(10, 132, 255, 0.28);
+  --backdrop: rgba(24, 24, 28, 0.55);
   --hover: rgba(255, 255, 255, 0.05);
   --search: rgba(0, 0, 0, 0.2);
 
   --window-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  --desktop-overlay: rgba(0, 0, 0, 0.12);
+  --glass: rgba(40, 40, 45, 0.58);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --dock: rgba(38, 38, 42, 0.52);
 }
 
 [data-theme="light"] {
@@ -35,8 +41,14 @@
 
   --hover: rgba(0, 0, 0, 0.04);
   --search: rgba(0, 0, 0, 0.05);
+  --selection: rgba(10, 132, 255, 0.18);
+  --backdrop: rgba(255, 255, 255, 0.55);
 
   --window-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+  --desktop-overlay: rgba(255, 255, 255, 0.08);
+  --glass: rgba(255, 255, 255, 0.56);
+  --glass-border: rgba(255, 255, 255, 0.60);
+  --dock: rgba(255, 255, 255, 0.46);
 }
 
 html,
@@ -51,9 +63,73 @@ body {
   background: var(--window);
   color: var(--text);
   transition:
-    background-color 250ms ease,
-    color 250ms ease;
+    background-color 300ms ease,
+    color 300ms ease;
 }
 .hide-scrollbar::-webkit-scrollbar{
     display:none;
+}
+
+* {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+::selection {
+  background: var(--selection);
+}
+
+html {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Shared macOS-style sliders */
+.brightness-slider,
+.volume-slider {
+  background: transparent;
+}
+
+.brightness-slider::-webkit-slider-runnable-track,
+.volume-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  background: var(--border);
+  border-radius: 9999px;
+}
+
+.brightness-slider::-webkit-slider-thumb,
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -5px;
+  border-radius: 9999px;
+  background: var(--accent);
+  border: 2px solid var(--window-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.brightness-slider::-moz-range-track,
+.volume-slider::-moz-range-track {
+  height: 6px;
+  background: var(--border);
+  border-radius: 9999px;
+}
+
+.brightness-slider::-moz-range-thumb,
+.volume-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--accent);
+  border: 2px solid var(--window-secondary);
+  cursor: pointer;
 }

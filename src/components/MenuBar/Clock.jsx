@@ -11,12 +11,27 @@ export default function Clock() {
     return () => clearInterval(timer);
   }, []);
 
-  const formatted = new Intl.DateTimeFormat(undefined, {
+  const dateParts = new Intl.DateTimeFormat("en-US", {
     weekday: "short",
+    day: "numeric",
+    month: "short",
+  }).formatToParts(now);
+
+  const weekday = dateParts.find((p) => p.type === "weekday")?.value;
+  const day = dateParts.find((p) => p.type === "day")?.value;
+  const month = dateParts.find((p) => p.type === "month")?.value;
+
+  const time = new Intl.DateTimeFormat("en-US", {
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
   }).format(now);
 
-  return <span className="select-none text-sm font-medium">{formatted}</span>;
+  const formatted = `${weekday} ${day} ${month} ${time}`;
+
+  return (
+    <span className="select-none px-2 text-[13px] font-medium tracking-tight">
+      {formatted}
+    </span>
+  );
 }

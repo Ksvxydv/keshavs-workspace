@@ -5,6 +5,7 @@ import { appRegistry } from "../../data/appRegistry";
 import DesktopIcon from "./DesktopIcon";
 import MenuBar from "../MenuBar/MenuBar";
 import Dock from "../Dock/Dock";
+import BrightnessOverlay from "../../core/system/BrightnessOverlay";
 
 import { useDesktopSettings } from "../../context/DesktopSettingsContext";
 import { AnimatePresence, motion } from "framer-motion";
@@ -110,6 +111,8 @@ export default function Desktop() {
             style={{ backgroundImage: `url(${wallpaper.image})` }}
             onClick={() => setSelectedIcon(null)}
           >
+            <BrightnessOverlay />
+
             {/* Menu Bar */}
             <MenuBar />
             {/* Desktop Icons */}

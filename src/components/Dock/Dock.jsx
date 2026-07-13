@@ -60,13 +60,11 @@ export default function Dock() {
           onMouseLeave={() => setMouseX(null)}
           className="flex items-end gap-1 rounded-[26px] border px-3 py-2 backdrop-blur-3xl transition-all duration-300 overflow-visible"
           style={{
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04))",
-            borderColor: "var(--border)",
+            background: "var(--dock)",
+            borderColor: "var(--glass-border)",
             backdropFilter: "blur(34px) saturate(180%)",
             WebkitBackdropFilter: "blur(34px) saturate(180%)",
-            boxShadow:
-              "0 24px 70px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.18)",
+            boxShadow: "var(--window-shadow), inset 0 1px 0 rgba(255,255,255,.12)",
           }}
         >
           {dockApps.map((app, index) => {
@@ -102,12 +100,12 @@ export default function Dock() {
                 key={app.id}
                 title={app.name}
                 onClick={() => handleOpen(app)}
-                className="group relative flex h-14 w-14 items-center justify-center rounded-[18px] transition-colors duration-200 hover:bg-white/8 active:scale-95"
+                className="group relative flex h-14 w-14 items-end justify-center rounded-[18px] transition-colors duration-150 hover:bg-white/8 active:scale-95"
                 style={{
                   background: "transparent",
                   transform: `scale(${scale})`,
                   transformOrigin: "bottom center",
-                  transition: "transform 220ms cubic-bezier(0.22,1,0.36,1)",
+                  transition: "transform 140ms cubic-bezier(.22,1,.36,1)",
                   zIndex: Math.round(scale * 100),
                   animation:
                     bouncingApp === app.id
@@ -119,7 +117,7 @@ export default function Dock() {
                   src={app.icon}
                   alt={app.name}
                   draggable={false}
-                  className="h-12 w-12 object-contain select-none pointer-events-none transition-transform duration-200"
+                  className="h-12 w-12 object-contain select-none pointer-events-none drop-shadow-md"
                 />
 
                 <span
@@ -135,7 +133,7 @@ export default function Dock() {
 
                 {running && (
                   <span
-                    className="absolute -bottom-1.5 h-1.5 w-1.5 rounded-full shadow-sm"
+                    className="absolute -bottom-1 h-1.5 w-1.5 rounded-full shadow-sm"
                     style={{
                       background: "var(--accent)",
                     }}
